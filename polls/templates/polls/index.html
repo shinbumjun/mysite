@@ -1,0 +1,12 @@
+{% if latest_question_list %} <!-- 데이터 받아서 사용-->
+    <ul>
+    {% for question in latest_question_list %}
+        <!-- <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+        <!-- url이 변경되는 경우가 있음-->
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        <!-- 특정 URL 경로에 대한 의존도를 제거 (앱 이름 명시) -->
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
