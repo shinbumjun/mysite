@@ -2,13 +2,26 @@
 
 <h1>{{ question.question_text }}</h1> 
 <!-- templates에 request 넘겨받고 question.question_text 제목으로 -->
-<ul>
+
+<!-- <ul>
 {% for choice in question.choice_set.all %} 
-<!-- question.choice_set.all : choice들이 question를 외래키로 가지고 있는 모든걸 가지고 와라 -->
-<!-- admin에서 추가한다음 다시 확인 -->
-<!-- choice가 shinbumjun을 외래키로 가지고 있는 모든 choice를 가지고 와라!-->
+    question.choice_set.all : choice들이 question를 외래키로 가지고 있는 모든걸 가지고 와라 
+    admin에서 추가한다음 다시 확인
+    choice가 shinbumjun을 외래키로 가지고 있는 모든 choice를 가지고 와라!
 
     <li>{{ choice.choice_text }}</li>
-    <!-- 리스트에 뿌려주기 -->
+    리스트에 뿌려주기 
 {% endfor %}
-</ul>
+</ul> -->
+
+{% if error_message %}<p>{{ error_message }}</p>{% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %} <!-- 해킹방지 -->
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Vote">
+    <!-- 버튼을 눌렀을때 해당 url을 호출하게 되고 해당 url은 views의 vote를 호출-->
+</form>

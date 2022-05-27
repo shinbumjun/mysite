@@ -1,0 +1,11 @@
+<h1>{{ question.question_text }}</h1> <!-- 데이터는 question이 보여줌-->
+
+<ul>
+    {% for choice in question.choice_set.all %} <!-- question 대한 선택지가 반복문을 돌려 뿌려짐 -->
+    <li>
+        {{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'polls:detail' question.id %}">상세페이지</a>
