@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
 {% if latest_question_list %} <!-- 데이터 받아서 사용-->
     <ul>
     {% for question in latest_question_list %}
