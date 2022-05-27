@@ -12,8 +12,13 @@ class Question(models.Model): # 질문 내용, 발행일
     def __str__(self):
         return self.question_text
 
+    # def was_published_recently(self):
+    #     return self.pub_data >= timezone.now() - datetime.timedelta(days=1) # 현재시각 - 하루 = 어제 이후에 발행이 된 데이터가 리턴
+    
+    # 버그 수정
     def was_published_recently(self):
-        return self.pub_data >= timezone.now() - datetime.timedelta(days=1) # 현재시각 - 하루 = 어제 이후에 발행이 된 데이터가 리턴
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_data <= now # 최근 기준을 하루로
 
 class Choice(models.Model): # 선택지에 해당하는 질문, 투표수
     question = models.ForeignKey(Question, on_delete=models.CASCADE) 
